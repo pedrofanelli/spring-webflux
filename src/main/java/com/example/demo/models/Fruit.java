@@ -1,4 +1,4 @@
-package com.example.demo.Models;
+package com.example.demo.models;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,7 +16,7 @@ public class Fruit {
     @Column(name = "name", nullable = false)
     String name;
 
-    @Column(name = "contact_name", nullable = true)
+    @Column(name = "description", nullable = true)
     String description;
 
 
