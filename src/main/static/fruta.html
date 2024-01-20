@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+    <title>Fruit View</title>
+</head>
+<body>
+    <h2>Fruit List</h2>
+    <ul>
+        <li th:each="fruit:${fruits}">
+            <span th:text="${fruit.name}"></span>
+        </li>
+    </ul>
+</body>
+</html>

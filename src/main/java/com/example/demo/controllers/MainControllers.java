@@ -4,6 +4,8 @@ package com.example.demo.controllers;
 import java.time.Duration;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,7 +33,7 @@ import reactor.core.publisher.Mono;
  * Vamos a trabajar igual haciendo un "bridge" en el servicio
  * 
  */
-@RestController
+@Controller
 public class MainControllers {
 
 	@Autowired
@@ -41,7 +43,7 @@ public class MainControllers {
 	WebClient webClient;
 	
 	@GetMapping("/api/webflux")
-	public Flux<Fruit> mainController() {
+	public String mainController(Model model) {
 		
 		Flux<Fruit> fruits = webClient
 				.get()
@@ -56,21 +58,16 @@ public class MainControllers {
 		*/
 	
 		
-		return fruits;	
+		model.addAttribute("fruits", fruits);
+		
+		
+		return "fruta";	
 		
 	}
 	
 	
-	@GetMapping("/internal/get")
-	public Flux<Fruit> internalGet() {
-		return service.getAll();
-	}
 	
-	@PostMapping("/api/webflux")
-	public Mono<Fruit> createFruit(@RequestBody Fruit fruit) {
-		
-		return service.saveEntity(fruit);
-	}
+	
 	
 	
 	
