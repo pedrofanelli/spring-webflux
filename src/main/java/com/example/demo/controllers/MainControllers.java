@@ -1,11 +1,14 @@
 package com.example.demo.controllers;
 
 
+import java.time.Duration;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import com.example.demo.models.Fruit;
 import com.example.demo.service.MainService;
@@ -34,14 +37,33 @@ public class MainControllers {
 	@Autowired
 	MainService service;
 	
+	@Autowired
+	WebClient webClient;
+	
 	@GetMapping("/api/webflux")
-	public Flux<String> mainController() {
+	public Flux<Fruit> mainController() {
 		
-		String[] fruits = new String[] {"Apple", "Orange", "Grape", "Banana"};
+		Flux<Fruit> fruits = webClient
+				.get()
+				.uri("/internal/get")
+				.retrieve()
+				.bodyToFlux(Fruit.class)
+				.delayElements(Duration.ofSeconds(2));
+			
+		/*
+		fruits.subscribe(x -> System.out.println(x.getName()),
+				         error -> System.out.println(error.getMessage()));
+		*/
+	
 		
-		return Flux.fromArray(fruits);
+		return fruits;	
 		
-		
+	}
+	
+	
+	@GetMapping("/internal/get")
+	public Flux<Fruit> internalGet() {
+		return service.getAll();
 	}
 	
 	@PostMapping("/api/webflux")

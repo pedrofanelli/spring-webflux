@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.models.Fruit;
 import com.example.demo.repositories.MainRepository;
 
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
@@ -24,4 +25,12 @@ public class MainService {
 		
         return monoFruta;
     }
+	
+	public Flux<Fruit> getAll() {
+		
+		return Flux.fromIterable(repository.findAll());
+		
+		
+	}
+	
 }

@@ -21,10 +21,7 @@ public class Fruit {
     @Column(name = "description", nullable = true)
     String description;
 
-    public Fruit(String name, String desc) {
-    	this.name = name;
-    	this.description = desc;
-    }
+    
 
     public Long getId() {
         return id;
