@@ -16,6 +16,10 @@ import reactor.core.publisher.Flux;
  * el Flux de forma automática, aunque todavía ni se hubiera pegado a la base. Cuando se obtenga la data
  * se enviará al Flux y se recibirá, ahi esta el potencial!
  * 
+ * DATO IMPORTANTE: No funciona con JPA, pero es usable con Redis! Todo el manejo de posible cache con eso
+ * 
+ * Vamos a trabajar igual haciendo un "bridge" en el servicio
+ * 
  */
 @RestController
 public class MainControllers {
