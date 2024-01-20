@@ -1,10 +1,17 @@
 package com.example.demo.controllers;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.models.Fruit;
+import com.example.demo.service.MainService;
+
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 /**
  * 
@@ -24,6 +31,9 @@ import reactor.core.publisher.Flux;
 @RestController
 public class MainControllers {
 
+	@Autowired
+	MainService service;
+	
 	@GetMapping("/api/webflux")
 	public Flux<String> mainController() {
 		
@@ -32,6 +42,12 @@ public class MainControllers {
 		return Flux.fromArray(fruits);
 		
 		
+	}
+	
+	@PostMapping("/api/webflux")
+	public Mono<Fruit> createFruit(@RequestBody Fruit fruit) {
+		
+		return service.saveEntity(fruit);
 	}
 	
 	
