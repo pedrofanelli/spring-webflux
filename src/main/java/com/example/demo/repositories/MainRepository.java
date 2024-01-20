@@ -1,5 +1,8 @@
 package com.example.demo.repositories;
 
-public class MainRepository {
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface MainRepository {
 
 }
